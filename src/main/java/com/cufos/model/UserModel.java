@@ -1,5 +1,6 @@
 package com.cufos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -51,10 +52,20 @@ public class UserModel {
           inverseJoinColumns = @JoinColumn(name = "course_id"))
   private Set<CourseModel> courses = new LinkedHashSet<>();
 
+  @Getter
+  @Setter
+  @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST},
+    fetch = FetchType.LAZY)
+  @JoinTable(name = "user_roles",
+    joinColumns = @JoinColumn(name = "users_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<RoleModel> roles = new HashSet<>();
+
   public UserModel() {
 
   }
 
+  @JsonIgnore
   public Set<CourseModel> getCourses(){return courses;}
 
   public void setCourses(Set<CourseModel> courses){this.courses = courses;}

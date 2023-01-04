@@ -30,6 +30,7 @@ public class CourseModel {
 
   @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST},
     fetch = FetchType.LAZY)
+//  @JsonIgnore
   @JoinTable(name = "courses_users",
           joinColumns = @JoinColumn(name = "course_id"),
           inverseJoinColumns = @JoinColumn(name = "users_id"))
