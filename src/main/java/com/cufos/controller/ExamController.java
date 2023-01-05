@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +39,13 @@ public class ExamController {
   public ResponseEntity<ExamModel> getExam(@PathVariable Long id){
     ExamModel _exam = examRepository.getReferenceById(id);
     return new ResponseEntity<ExamModel>(_exam,HttpStatus.OK);
+  }
+
+  @GetMapping("/exam/{note}") //UTILIZZA USER SERVICE
+  public ResponseEntity<?> getExamByNote (@PathVariable("note") int val){
+    Optional<Set<ExamModel>> _exam = examRepository.findByValutazione(val);
+
+    return new ResponseEntity<>(_exam, HttpStatus.OK);
   }
 
   @DeleteMapping("/exam/{id}")
