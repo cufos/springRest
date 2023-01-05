@@ -45,6 +45,14 @@ public class RoleController {
     return ResponseEntity.ok().build();
   }
 
+//  @PutMapping("/role/{id}")
+//  public ResponseEntity<RoleModel> updateRoles(@PathVariable("id") long id, @RequestBody RoleModel role) {
+//    RoleModel _role = rolesRepository.findById(id)
+//      .orElseThrow(() -> new ResourceNotFoundException("Not found Role with id = " + id));
+//    _role.setName(role.getName());
+//    return new ResponseEntity<>(rolesRepository.save(_role), HttpStatus.OK);
+//  }
+
   @DeleteMapping("roles/{id}")
   public ResponseEntity<HttpStatus> deleteRole(@PathVariable("id") long id){
     rolesRepository.deleteById(id);

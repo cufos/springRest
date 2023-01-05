@@ -1,6 +1,5 @@
 package com.cufos.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,60 +13,59 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users",
-        uniqueConstraints = {
-          @UniqueConstraint(columnNames = "username"),
-          @UniqueConstraint(columnNames = "email")
-        })
+  uniqueConstraints = {
+    @UniqueConstraint(columnNames = "username"),
+    @UniqueConstraint(columnNames = "email")
+  })
 public class UserModel {
-
   @Id
   @Setter
   @Getter
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   @Setter
   @Getter
   @NotBlank
-  @Size(max= 20)
+  @Size(max = 20)
   private String username;
-
   @Setter
   @Getter
   @NotBlank
+  @Size(max = 50)
   @Email
-  @Size(max = 120)
   private String email;
-
   @Setter
   @Getter
   @NotBlank
-  @Size(max = 100)
+  @Size(max = 120)
   private String password;
 
-  @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST},
-    fetch = FetchType.LAZY)
-  @JoinTable(name = "courses_users",
-          joinColumns = @JoinColumn(name = "users_id"),
-          inverseJoinColumns = @JoinColumn(name = "course_id"))
-  private Set<CourseModel> courses = new LinkedHashSet<>();
-
   @Getter
   @Setter
-  @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST},
-    fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_roles",
-    joinColumns = @JoinColumn(name = "users_id"),
+    joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<RoleModel> roles = new HashSet<>();
 
-  public UserModel() {
+  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST}, mappedBy = "users")
+  private Set<CourseModel> courses = new LinkedHashSet<>();
 
+  public Set<CourseModel> getCourses() {
+    return courses;
   }
 
-  @JsonIgnore
-  public Set<CourseModel> getCourses(){return courses;}
+  public void setCourses(Set<CourseModel> courses) {
+    this.courses = courses;
+  }
 
-  public void setCourses(Set<CourseModel> courses){this.courses = courses;}
+  public UserModel() {
+  }
+
+  public UserModel(String username, String email, String password) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
 
 }
