@@ -51,6 +51,16 @@ public class UserModel {
   @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST}, mappedBy = "users")
   private Set<CourseModel> courses = new LinkedHashSet<>();
 
+
+  @Getter
+  @Setter
+  @OneToMany(cascade = {CascadeType.ALL})
+  @JoinTable(name = "user_exams",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "exam_id"))
+  private Set<ExamModel> exams = new HashSet<>();
+
+
   public Set<CourseModel> getCourses() {
     return courses;
   }

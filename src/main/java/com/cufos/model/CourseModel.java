@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -35,6 +36,14 @@ public class CourseModel {
           joinColumns = @JoinColumn(name = "course_id"),
           inverseJoinColumns = @JoinColumn(name = "users_id"))
   private Set<UserModel> users = new LinkedHashSet<>();
+
+  @Getter
+  @Setter
+  @OneToMany(cascade = {CascadeType.ALL})
+  @JoinTable(name = "user_exams",
+    joinColumns = @JoinColumn(name = "course_id"),
+    inverseJoinColumns = @JoinColumn(name = "exam_id"))
+  private Set<ExamModel> exams = new HashSet<>();
 
   public Set<UserModel> getUsers(){return users; }
 

@@ -5,12 +5,10 @@ import com.cufos.model.RoleEn;
 import com.cufos.model.RoleModel;
 import com.cufos.model.UserModel;
 import com.cufos.payload.request.SignupRequest;
-import com.cufos.payload.response.MessageResponse;
 import com.cufos.repository.RolesRepository;
 import com.cufos.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class AuthUser {
+public class AuthUser<T> {
   @Autowired
   UserRepository userRepository;
   @Autowired

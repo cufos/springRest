@@ -68,6 +68,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
             .requestMatchers("api/users").permitAll()
         .requestMatchers("/api/users/admin").hasRole("ADMIN")
             .requestMatchers("/api/users/mod").hasRole("ADMIN")
+      .requestMatchers("/api/exam").permitAll()
         .anyRequest().authenticated();
     
     httpSecurity.authenticationProvider(authenticationProvider());
