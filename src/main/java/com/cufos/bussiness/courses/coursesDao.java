@@ -3,7 +3,6 @@ package com.cufos.bussiness.courses;
 import com.cufos.model.CourseModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface coursesDao {
   List<CourseModel> getAllCourses();

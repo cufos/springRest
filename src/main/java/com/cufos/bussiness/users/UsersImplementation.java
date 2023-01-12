@@ -78,14 +78,17 @@ public class UsersImplementation implements usersDao{
     } else {
       strRoles.forEach(role -> {
 
-        switch (role) {
-          case "admin":
-            RoleModel adminRole = rolesRepository.findByName(RoleEn.ROLE_ADMIN)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(adminRole);
-
-            break;
+        if (role != "admin"){
+          RoleModel adminRole = rolesRepository.findByName(RoleEn.ROLE_ADMIN)
+            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+          roles.add(adminRole);
         }
+
+        RoleModel adminRole = rolesRepository.findByName(RoleEn.ROLE_ADMIN)
+          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(adminRole);
+
+
       });
     }
 
