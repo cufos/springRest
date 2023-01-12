@@ -8,4 +8,6 @@ import java.util.Set;
 
 public interface ExamRepository extends JpaRepository<ExamModel,Long> {
   Optional<Set<ExamModel>> findByValutazione(int valutazione);
+
+  boolean existsById(Long id);
 }

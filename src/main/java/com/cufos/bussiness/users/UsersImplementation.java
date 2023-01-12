@@ -1,6 +1,6 @@
 package com.cufos.bussiness.users;
 
-import com.cufos.exception.ResourceAlreadyPresentException;
+import com.cufos.exception.ResourceAlreadyExistsException;
 import com.cufos.exception.ResourceNotFoundException;
 import com.cufos.model.RoleEn;
 import com.cufos.model.RoleModel;
@@ -56,11 +56,11 @@ public class UsersImplementation implements usersDao{
   public void createAdmin(SignupRequest signUpRequest) {
 
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-      throw new ResourceAlreadyPresentException("Error: Username is already taken!");
+      throw new ResourceAlreadyExistsException("Error: Username is already taken!");
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-      throw new ResourceAlreadyPresentException("Error: Email is already in use!");
+      throw new ResourceAlreadyExistsException("Error: Email is already in use!");
     }
 
     UserModel user = new UserModel(signUpRequest.getUsername(),

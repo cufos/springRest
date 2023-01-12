@@ -1,6 +1,6 @@
 package com.cufos.bussiness.auth;
 
-import com.cufos.exception.ResourceAlreadyPresentException;
+import com.cufos.exception.ResourceAlreadyExistsException;
 import com.cufos.model.RoleEn;
 import com.cufos.model.RoleModel;
 import com.cufos.model.UserModel;
@@ -27,11 +27,11 @@ public class AuthUser<T> {
 
   public UserModel registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-      throw new ResourceAlreadyPresentException("Error: Username is already taken!");
+      throw new ResourceAlreadyExistsException("Error: Username is already taken!");
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-      throw new ResourceAlreadyPresentException("Error: Email is already in use!");
+      throw new ResourceAlreadyExistsException("Error: Email is already in use!");
     }
 
     // Create new user's account

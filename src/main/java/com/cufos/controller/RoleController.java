@@ -1,5 +1,6 @@
 package com.cufos.controller;
 
+import com.cufos.bussiness.role.RoleImplementation;
 import com.cufos.model.RoleModel;
 import com.cufos.model.UserModel;
 import com.cufos.repository.RolesRepository;
@@ -9,38 +10,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class RoleController {
+  private final RoleImplementation roleImplementation;
 
-  @Autowired
-  RolesRepository rolesRepository;
-  @Autowired
-  private UserRepository userRepository;
+  public RoleController(RoleImplementation roleImplementation) {
+    this.roleImplementation = roleImplementation;
+  }
 
   @GetMapping("/roles")
   public ResponseEntity<List<RoleModel>> getRole(){
-    List<RoleModel> userArrayList = new ArrayList<>(rolesRepository.findAll());
-
-    if (userArrayList.isEmpty()) {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    return new ResponseEntity<>(userArrayList, HttpStatus.OK);
+    return new ResponseEntity<>(roleImplementation.getRoles(), HttpStatus.OK);
   }
 
   @PostMapping("/users/{userId}/roles")
   public ResponseEntity<Object> addRoleToUser(@PathVariable Long userId, @RequestBody RoleModel role) {
-    UserModel user = userRepository.findById(userId).orElse(null);
-    if (user == null || role == null) {
-      return ResponseEntity.notFound().build();
-    }
-
-    user.getRoles().add(role);
-    userRepository.save(user);
+   roleImplementation.addRoleToUser(userId,role);
 
     return ResponseEntity.ok().build();
   }
@@ -55,7 +43,7 @@ public class RoleController {
 
   @DeleteMapping("roles/{id}")
   public ResponseEntity<HttpStatus> deleteRole(@PathVariable("id") long id){
-    rolesRepository.deleteById(id);
+    roleImplementation.deleteRole(id);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
