@@ -2,10 +2,6 @@ package com.cufos.controller;
 
 import com.cufos.bussiness.role.RoleImplementation;
 import com.cufos.model.RoleModel;
-import com.cufos.model.UserModel;
-import com.cufos.repository.RolesRepository;
-import com.cufos.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +19,8 @@ public class RoleController {
 
   @GetMapping("/roles")
   public ResponseEntity<List<RoleModel>> getRole(){
-    return new ResponseEntity<>(roleImplementation.getRoles(), HttpStatus.OK);
+    List<RoleModel> roles = roleImplementation.getRoles();
+    return new ResponseEntity<>(roles, HttpStatus.OK);
   }
 
   @PostMapping("/users/{userId}/roles")

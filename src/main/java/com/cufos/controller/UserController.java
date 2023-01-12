@@ -5,10 +5,7 @@ import com.cufos.bussiness.users.UsersImplementation;
 import com.cufos.model.UserModel;
 import com.cufos.payload.request.SignupRequest;
 import com.cufos.payload.response.MessageResponse;
-import com.cufos.repository.RolesRepository;
-import com.cufos.repository.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +23,8 @@ public class UserController {
 
   @GetMapping("/users")
   public ResponseEntity<List<UserModel>> getUsers(){
-    return new ResponseEntity<>(usersImplementation.getAllUsers(), HttpStatus.OK);
+    List<UserModel> _users = usersImplementation.getAllUsers();
+    return new ResponseEntity<>(_users, HttpStatus.OK);
   }
 
   @GetMapping("/user/{id}")

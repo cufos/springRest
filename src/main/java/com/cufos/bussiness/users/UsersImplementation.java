@@ -1,5 +1,6 @@
 package com.cufos.bussiness.users;
 
+import com.cufos.exception.RequestValidationException;
 import com.cufos.exception.ResourceAlreadyExistsException;
 import com.cufos.exception.ResourceNotFoundException;
 import com.cufos.model.RoleEn;
@@ -79,9 +80,9 @@ public class UsersImplementation implements usersDao{
       strRoles.forEach(role -> {
 
         if (role != "admin"){
-          RoleModel adminRole = rolesRepository.findByName(RoleEn.ROLE_ADMIN)
-            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-          roles.add(adminRole);
+          throw new RequestValidationException(
+            "The user should have admin role by default"
+          );
         }
 
         if (role.equals("admin")) {

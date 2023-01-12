@@ -18,12 +18,16 @@ import java.util.Set;
 
 @Service
 public class AuthUser<T> {
-  @Autowired
-  UserRepository userRepository;
-  @Autowired
-  RolesRepository roleRepository;
+  private final UserRepository userRepository;
+  private final RolesRepository roleRepository;
+
   @Autowired
   PasswordEncoder encoder;
+
+  public AuthUser(UserRepository userRepository, RolesRepository roleRepository) {
+    this.userRepository = userRepository;
+    this.roleRepository = roleRepository;
+  }
 
   public UserModel registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {

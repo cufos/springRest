@@ -19,13 +19,15 @@ public class CourseController {
 
   @GetMapping("/course")
   public ResponseEntity<List<CourseModel>> getCourses() {
-    return new ResponseEntity<>(courseImplementation.getAllCourses(), HttpStatus.OK);
+    List<CourseModel> _course = courseImplementation.getAllCourses();
+    return new ResponseEntity<>(_course, HttpStatus.OK);
   }
 
   @GetMapping("/course/{id}")
   public ResponseEntity<?> getCourse(@PathVariable("id") Long id) {
+    CourseModel _course = courseImplementation.getCourseById(id);
 
-      return new ResponseEntity<>(courseImplementation.getCourseById(id),HttpStatus.NO_CONTENT);
+      return new ResponseEntity<>(_course,HttpStatus.NO_CONTENT);
   }
 
 
