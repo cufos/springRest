@@ -24,7 +24,7 @@ public class ExamController {
     return new ResponseEntity<>(_exam, HttpStatus.CREATED);
   }
 
-  @GetMapping("/users")
+  @GetMapping("/exam/users")
   public ResponseEntity<List<ExamModel>> getExams(){
     List<ExamModel> examArrayList = new ArrayList<>(examRepository.findAll());
 
