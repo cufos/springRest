@@ -1,5 +1,6 @@
-package com.cufos.bussiness.users;
+package com.cufos.bussiness.impl;
 
+import com.cufos.bussiness.usersBO;
 import com.cufos.exception.RequestValidationException;
 import com.cufos.exception.ResourceAlreadyExistsException;
 import com.cufos.exception.ResourceNotFoundException;
@@ -16,14 +17,14 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class UsersImplementation implements usersDao{
+public class UsersBOImpl implements usersBO {
   private final UserRepository userRepository;
   private final RolesRepository rolesRepository;
 
   @Autowired
   PasswordEncoder encoder;
 
-  public UsersImplementation(UserRepository userRepository, RolesRepository rolesRepository) {
+  public UsersBOImpl(UserRepository userRepository, RolesRepository rolesRepository) {
     this.userRepository = userRepository;
     this.rolesRepository = rolesRepository;
   }

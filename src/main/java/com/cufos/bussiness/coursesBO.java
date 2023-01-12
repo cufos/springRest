@@ -1,10 +1,10 @@
-package com.cufos.bussiness.courses;
+package com.cufos.bussiness;
 
 import com.cufos.model.CourseModel;
 
 import java.util.List;
 
-public interface coursesDao {
+public interface coursesBO {
   List<CourseModel> getAllCourses();
 
   CourseModel getCourseById(Long id);

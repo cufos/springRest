@@ -1,6 +1,6 @@
 package com.cufos.controller;
 
-import com.cufos.bussiness.exam.ExamImplementation;
+import com.cufos.bussiness.impl.ExamBOImpl;
 import com.cufos.model.ExamModel;
 import com.cufos.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +15,23 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api")
 public class ExamController {
-  private final ExamImplementation examImplementation;
+  private final ExamBOImpl examBOImpl;
   @Autowired
   ExamRepository examRepository;
 
-  public ExamController(ExamImplementation examImplementation) {
-    this.examImplementation = examImplementation;
+  public ExamController(ExamBOImpl examBOImpl) {
+    this.examBOImpl = examBOImpl;
   }
 
   @PostMapping("/exam")
   public ResponseEntity<?> createExam (@RequestBody ExamModel exam)  {
-   examImplementation.createExam(exam);
+   examBOImpl.createExam(exam);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @GetMapping("/exam")
   public ResponseEntity<List<ExamModel>> getExams(){
-    List<ExamModel> exam = examImplementation.getExams();
+    List<ExamModel> exam = examBOImpl.getExams();
     if (exam.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -41,20 +41,20 @@ public class ExamController {
 
   @GetMapping("/exam/{id}")
   public ResponseEntity<ExamModel> getExam(@PathVariable Long id){
-    ExamModel _exam = examImplementation.getExamById(id);
+    ExamModel _exam = examBOImpl.getExamById(id);
     return new ResponseEntity<>(_exam,HttpStatus.OK);
   }
 
   @GetMapping("/exam/{note}") //UTILIZZA USER SERVICE
   public ResponseEntity<?> getExamByNote (@PathVariable("note") int val){
-    Optional<Set<ExamModel>> _exam = examImplementation.getNoteExam(val);
+    Optional<Set<ExamModel>> _exam = examBOImpl.getNoteExam(val);
 
     return new ResponseEntity<>(_exam, HttpStatus.OK);
   }
 
   @DeleteMapping("/exam/{id}")
   public  ResponseEntity<HttpStatus> deleteExam(@PathVariable long id){
-    examImplementation.deleteExam(id);
+    examBOImpl.deleteExam(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 

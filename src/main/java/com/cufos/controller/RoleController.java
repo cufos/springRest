@@ -1,6 +1,6 @@
 package com.cufos.controller;
 
-import com.cufos.bussiness.role.RoleImplementation;
+import com.cufos.bussiness.impl.RoleBOImpl;
 import com.cufos.model.RoleModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,21 +11,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class RoleController {
-  private final RoleImplementation roleImplementation;
+  private final RoleBOImpl roleBOImpl;
 
-  public RoleController(RoleImplementation roleImplementation) {
-    this.roleImplementation = roleImplementation;
+  public RoleController(RoleBOImpl roleBOImpl) {
+    this.roleBOImpl = roleBOImpl;
   }
 
   @GetMapping("/roles")
   public ResponseEntity<List<RoleModel>> getRole(){
-    List<RoleModel> roles = roleImplementation.getRoles();
+    List<RoleModel> roles = roleBOImpl.getRoles();
     return new ResponseEntity<>(roles, HttpStatus.OK);
   }
 
   @PostMapping("/users/{userId}/roles")
   public ResponseEntity<Object> addRoleToUser(@PathVariable Long userId, @RequestBody RoleModel role) {
-   roleImplementation.addRoleToUser(userId,role);
+   roleBOImpl.addRoleToUser(userId,role);
 
     return ResponseEntity.ok().build();
   }
@@ -40,7 +40,7 @@ public class RoleController {
 
   @DeleteMapping("roles/{id}")
   public ResponseEntity<HttpStatus> deleteRole(@PathVariable("id") long id){
-    roleImplementation.deleteRole(id);
+    roleBOImpl.deleteRole(id);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

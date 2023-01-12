@@ -1,7 +1,7 @@
 package com.cufos.controller;
 
 
-import com.cufos.bussiness.users.UsersImplementation;
+import com.cufos.bussiness.impl.UsersBOImpl;
 import com.cufos.model.UserModel;
 import com.cufos.payload.request.SignupRequest;
 import com.cufos.payload.response.MessageResponse;
@@ -15,28 +15,28 @@ import java.util.*;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-  private final UsersImplementation usersImplementation;
+  private final UsersBOImpl usersBOImpl;
 
-  public UserController(UsersImplementation usersImplementation) {
-    this.usersImplementation = usersImplementation;
+  public UserController(UsersBOImpl usersBOImpl) {
+    this.usersBOImpl = usersBOImpl;
   }
 
   @GetMapping("/users")
   public ResponseEntity<List<UserModel>> getUsers(){
-    List<UserModel> _users = usersImplementation.getAllUsers();
+    List<UserModel> _users = usersBOImpl.getAllUsers();
     return new ResponseEntity<>(_users, HttpStatus.OK);
   }
 
   @GetMapping("/user/{id}")
   public ResponseEntity<?> getUser(@PathVariable Long id){
-    Optional<UserModel> user = usersImplementation.getUserById(id);
+    Optional<UserModel> user = usersBOImpl.getUserById(id);
 
     return new ResponseEntity<>(user,HttpStatus.OK);
   }
 
   @DeleteMapping("user/{id}")
   public ResponseEntity<?> deleteUser(@PathVariable Long id){
-    usersImplementation.deleteUser(id);
+    usersBOImpl.deleteUser(id);
 
     return new ResponseEntity(HttpStatus.OK);
   }
@@ -50,7 +50,7 @@ public class UserController {
   @PostMapping("/users/admin")
   public ResponseEntity<?> createAdmin(@Valid @RequestBody SignupRequest signUpRequest) {
 
-      usersImplementation.createAdmin(signUpRequest);
+      usersBOImpl.createAdmin(signUpRequest);
       return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

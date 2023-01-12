@@ -1,5 +1,6 @@
-package com.cufos.bussiness.exam;
+package com.cufos.bussiness.impl;
 
+import com.cufos.bussiness.examBO;
 import com.cufos.exception.ResourceNotFoundException;
 import com.cufos.model.ExamModel;
 import com.cufos.repository.ExamRepository;
@@ -11,10 +12,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ExamImplementation implements examDao{
+public class ExamBOImpl implements examBO {
   private final ExamRepository examRepository;
 
-  public ExamImplementation(ExamRepository examRepository) {
+  public ExamBOImpl(ExamRepository examRepository) {
     this.examRepository = examRepository;
   }
 

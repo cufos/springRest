@@ -1,4 +1,4 @@
-package com.cufos.bussiness.users;
+package com.cufos.bussiness;
 
 import com.cufos.model.UserModel;
 import com.cufos.payload.request.SignupRequest;
@@ -6,7 +6,7 @@ import com.cufos.payload.request.SignupRequest;
 import java.util.List;
 import java.util.Optional;
 
-public interface usersDao {
+public interface usersBO {
   List<UserModel> getAllUsers();
 
   Optional<UserModel> getUserById(Long id);

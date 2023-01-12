@@ -1,5 +1,6 @@
-package com.cufos.bussiness.courses;
+package com.cufos.bussiness.impl;
 
+import com.cufos.bussiness.coursesBO;
 import com.cufos.exception.RequestValidationException;
 import com.cufos.exception.ResourceNotFoundException;
 import com.cufos.model.CourseModel;
@@ -11,13 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class CourseImplementation implements coursesDao {
+public class CourseBOImpl implements coursesBO {
 
   private final CourseRepository courseRepository;
 
   private final UserRepository userRepository;
 
-  public CourseImplementation(CourseRepository courseRepository, UserRepository userRepository) {
+  public CourseBOImpl(CourseRepository courseRepository, UserRepository userRepository) {
     this.courseRepository = courseRepository;
     this.userRepository = userRepository;
   }

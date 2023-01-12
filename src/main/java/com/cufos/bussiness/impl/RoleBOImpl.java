@@ -1,22 +1,22 @@
-package com.cufos.bussiness.role;
+package com.cufos.bussiness.impl;
 
+import com.cufos.bussiness.roleBO;
 import com.cufos.exception.ResourceNotFoundException;
 import com.cufos.model.RoleModel;
 import com.cufos.model.UserModel;
 import com.cufos.repository.RolesRepository;
 import com.cufos.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RoleImplementation implements roleDao {
+public class RoleBOImpl implements roleBO {
   private final RolesRepository rolesRepository;
   private final UserRepository userRepository;
 
-  public RoleImplementation(RolesRepository rolesRepository, UserRepository userRepository) {
+  public RoleBOImpl(RolesRepository rolesRepository, UserRepository userRepository) {
     this.rolesRepository = rolesRepository;
     this.userRepository = userRepository;
   }

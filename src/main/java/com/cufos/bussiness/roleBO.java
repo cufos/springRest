@@ -1,10 +1,10 @@
-package com.cufos.bussiness.role;
+package com.cufos.bussiness;
 
 import com.cufos.model.RoleModel;
 
 import java.util.List;
 
-public interface roleDao {
+public interface roleBO {
   List<RoleModel> getRoles();
 
   void deleteRole(Long id);
