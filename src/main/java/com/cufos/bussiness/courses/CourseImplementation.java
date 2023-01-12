@@ -1,5 +1,6 @@
 package com.cufos.bussiness.courses;
 
+import com.cufos.exception.RequestValidationException;
 import com.cufos.exception.ResourceNotFoundException;
 import com.cufos.model.CourseModel;
 import com.cufos.model.UserModel;
@@ -29,11 +30,14 @@ public class CourseImplementation implements coursesDao {
   }
 
   @Override
-  public Optional<CourseModel> getCourseById(Long id) {
-    Optional<CourseModel> _course = courseRepository.findById(id);
+  public CourseModel getCourseById(Long id) {
+
     if (!courseRepository.existsById(id)){
       throw new ResourceNotFoundException("Course with [%id] not found".formatted(id));
     }
+
+    CourseModel _course = courseRepository.getReferenceById(id);
+
     return _course;
   }
 
@@ -65,10 +69,25 @@ public class CourseImplementation implements coursesDao {
 
   @Override
   public void updateCourse(Long id, CourseModel course) {
-    CourseModel _course = courseRepository.findById(id)
-      .orElseThrow(() -> new ResourceNotFoundException("Not found Course with [%id]".formatted(id)));
-    _course.setName(course.getName());
-    _course.setDescription(course.getDescription());
+    CourseModel _course = getCourseById(id);
+    boolean changes = false;
+
+    if (course.getName() != null && !course.getName().equals(_course.getName())){
+      _course.setName(course.getName());
+      changes = true;
+    }
+
+    if (course.getDescription() != null && !course.getDescription().equals(_course.getDescription())){
+      _course.setName(course.getName());
+      changes = true;
+    }
+
+    if(!changes){
+      throw new RequestValidationException("No data changes found");
+    }
+
+    courseRepository.save(_course);
+
   }
 
 

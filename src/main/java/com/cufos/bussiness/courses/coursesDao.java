@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface coursesDao {
   List<CourseModel> getAllCourses();
 
-  Optional<CourseModel> getCourseById(Long id);
+  CourseModel getCourseById(Long id);
 
   void createCourse(CourseModel course);
 

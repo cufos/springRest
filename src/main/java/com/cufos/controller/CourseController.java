@@ -23,7 +23,7 @@ public class CourseController {
   }
 
   @GetMapping("/course/{id}")
-  public ResponseEntity<Optional> getCourse(@PathVariable("id") Long id) {
+  public ResponseEntity<?> getCourse(@PathVariable("id") Long id) {
 
       return new ResponseEntity<>(courseImplementation.getCourseById(id),HttpStatus.NO_CONTENT);
   }
