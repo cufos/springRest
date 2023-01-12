@@ -84,11 +84,11 @@ public class UsersImplementation implements usersDao{
           roles.add(adminRole);
         }
 
-        RoleModel adminRole = rolesRepository.findByName(RoleEn.ROLE_ADMIN)
-          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(adminRole);
-
-
+        if (role.equals("admin")) {
+          RoleModel adminRole = rolesRepository.findByName(RoleEn.ROLE_ADMIN)
+            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+          roles.add(adminRole);
+        }
       });
     }
 
