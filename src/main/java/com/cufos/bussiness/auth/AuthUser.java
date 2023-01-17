@@ -77,4 +77,6 @@ public class AuthUser<T> {
     userRepository.save(user);
     return user;
   }
+
+
 }

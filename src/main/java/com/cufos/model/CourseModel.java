@@ -29,6 +29,16 @@ public class CourseModel {
   @Column(name = "description")
   private String description;
 
+  @Getter
+  @Setter
+  @Lob @Basic(fetch = FetchType.LAZY)
+  @Column(length=100000)
+  private byte[] data;
+
+  @Getter
+  @Setter
+  private String type;
+
   @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST},
     fetch = FetchType.LAZY)
 //  @JsonIgnore

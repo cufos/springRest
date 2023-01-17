@@ -8,7 +8,9 @@ import com.cufos.model.UserModel;
 import com.cufos.repository.CourseRepository;
 import com.cufos.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -89,6 +91,19 @@ public class CourseBOImpl implements coursesBO {
 
     courseRepository.save(_course);
 
+  }
+
+  @Override
+  public CourseModel findByIdFile(Long id) {
+    return courseRepository.findById(id).get();
+  }
+
+  @Override
+  public void uploadFile(Long id, MultipartFile data) throws IOException {
+    CourseModel _course = courseRepository.getReferenceById(id);
+    _course.setData(data.getBytes());
+    _course.setType(data.getContentType());
+    courseRepository.save(_course);
   }
 
 
