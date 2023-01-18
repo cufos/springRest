@@ -78,4 +78,10 @@ public class CourseController {
       .body(_course.getData());
   }
 
+  @PutMapping("files/{id}")
+  public ResponseEntity<?> deleteFile(@PathVariable Long id){
+      courseBOImpl.deleteFile(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
 }

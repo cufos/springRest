@@ -21,4 +21,6 @@ public interface coursesBO {
 
   public CourseModel findByIdFile(Long id);
   void uploadFile(Long id, MultipartFile data) throws IOException;
+
+  void deleteFile(Long id);
 }

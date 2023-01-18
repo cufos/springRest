@@ -106,5 +106,13 @@ public class CourseBOImpl implements coursesBO {
     courseRepository.save(_course);
   }
 
+  @Override
+  public void deleteFile(Long id) {
+    CourseModel course = courseRepository.getReferenceById(id);
+    course.setData(new byte[0]);
+    course.setType(null);
+    courseRepository.save(course);
+  }
+
 
 }
